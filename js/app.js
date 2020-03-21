@@ -1,6 +1,7 @@
 new Vue({
     el: '#app',
     data: {
+      isShowingCart: false,
       cart: {
         items: [],
       },
@@ -59,9 +60,18 @@ new Vue({
           return formatter.format(value);
        }
     },
+    computed: {
+      cartTotal: function() {
+        let total = 0;
+        this.cart.items.forEach((item) => {
+          total += item.product.price * item.quantity
+        });
+        return total;
+      }
+    },
     methods: {
       addProductToCart(product) {
-        this.cart.item.push({
+        this.cart.items.push({
           product: product,
           quantity: 1
         });
