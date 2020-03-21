@@ -1,6 +1,9 @@
 new Vue({
     el: '#app',
     data: {
+      cart: {
+        items: [],
+      },
         products: [
             {
                 id: 1,
@@ -55,5 +58,15 @@ new Vue({
 
           return formatter.format(value);
        }
+    },
+    methods: {
+      addProductToCart(product) {
+        this.cart.item.push({
+          product: product,
+          quantity: 1
+        });
+
+        product.inStock--;
+      }
     }
 });
