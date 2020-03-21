@@ -67,6 +67,9 @@ new Vue({
           total += item.product.price * item.quantity
         });
         return total;
+      },
+      taxAmount: function() {
+        return ((this.cartTotal) * 10 / 100);
       }
     },
     methods: {

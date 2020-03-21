@@ -47,7 +47,45 @@
             </div>
             <div v-else>
               <h1>Cart</h1>
-              <p>This page showing cart details.</p>
+              <table v-if="cart.items.length > 0" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in cart.items" :key="item.id">
+                    <td>{{item.product.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.product.price | currencyFormat}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" colspan="2">
+                      <strong>SubTotal</strong>
+                    </td>
+                    <td>{{cartTotal | currencyFormat}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" colspan="2">
+                      <strong>Taxes</strong>
+                    </td>
+                    <td>{{taxAmount | currencyFormat}}</td>
+                  </tr>
+                  <tr>
+                  <td class="text-right" colspan="2">
+                    <strong>Grand Total</strong>
+                  </td>
+                  <td>{{cartTotal + taxAmount | currencyFormat}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <td><button class="btn btn-success">Checkout</button></td>
+                </tr>
+                </tbody>
+              </table>
+              <p v-else>Your cart is empty</p>
             </div>
         </div>
     </div>
