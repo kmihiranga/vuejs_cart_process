@@ -59,7 +59,7 @@
                   <tr v-for="item in cart.items" :key="item.id">
                     <td>{{item.product.name}}</td>
                     <td>{{item.quantity}}</td>
-                    <td>{{item.product.price | currencyFormat}}</td>
+                    <td>{{item.product.price * item.quantity | currencyFormat}}</td>
                   </tr>
                   <tr>
                     <td class="text-right" colspan="2">
