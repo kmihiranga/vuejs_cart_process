@@ -1,96 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>E-commerce Example Application</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <div class="container">
-            <br>
-            <nav id="top-navigation" class="well well-sm flex flex-row align-center">
-                <a href="#" @click.prevent="isShowingCart = false"><strong>E-commerce Inc.</strong></a>
+      <div class="container">
+        <br />
+        <nav
+          id="top-navigation"
+          class="well well-sm flex flex-row align-center"
+        >
+          <a href="#" @click.prevent="isShowingCart = false"
+            ><strong>E-commerce Inc.</strong></a
+          >
 
-                <div class="text-right pull-right cart-info">
-                    <span class="stats">{{cart.items.length}} <template v-if="cart.items.length == 1">item</template> <template v-else>items</template> in cart, totalling {{cartTotal | currencyFormat}}</span>
-                    <button class="btn btn-primary" @click="isShowingCart = true">View Cart</button>
-                </div>
-            </nav>
+          <div class="text-right pull-right cart-info">
+            <span class="stats"
+              >{{cart.items.length}}
+              <template v-if="cart.items.length == 1"
+                >item</template
+              >
+              <template v-else
+                >items</template
+              >
+              in cart, totalling {{cartTotal | currencyFormat}}</span
+            >
+            <button class="btn btn-primary" @click="isShowingCart = true">
+              View Cart
+            </button>
+          </div>
+        </nav>
 
-            <div v-if="!isShowingCart" class="row list-group">
-                <div v-for="product in products" :key="product.id" class="item col-xs-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff">
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading">{{product.name}}</h4>
-                            <p class="group inner list-group-item-text">{{product.description}}</p>
-                            <br>
+        <div v-if="!isShowingCart" class="row list-group">
+          <div
+            v-for="product in products"
+            :key="product.id"
+            class="item col-xs-4"
+          >
+            <div class="thumbnail">
+              <img
+                class="group list-group-image"
+                src="http://placehold.it/400x250/000/fff"
+              />
+              <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                  {{product.name}}
+                </h4>
+                <p class="group inner list-group-item-text">
+                  {{product.description}}
+                </p>
+                <br />
 
-                            <div class="row flex flex-row align-center">
-                                <div class="col-xs-4">
-                                    <p class="lead">{{product.price | currencyFormat}}</p>
-                                </div>
+                <div class="row flex flex-row align-center">
+                  <div class="col-xs-4">
+                    <p class="lead">{{product.price | currencyFormat}}</p>
+                  </div>
 
-                                <div class="col-xs-8 flex flex-row align-center justify-right">
-                                    <div class="number-in-stock" :class="{ few: product.inStock < 10, none: product.inStock == 0 }">
-                                        {{product.inStock}} in stock
-                                    </div>
-                                    <button class="btn btn-success" @click="addProductToCart(product)" :disabled="product.inStock == 0">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
+                  <div
+                    class="col-xs-8 flex flex-row align-center justify-right"
+                  >
+                    <div
+                      class="number-in-stock"
+                      :class="{ few: product.inStock < 10, none: product.inStock == 0 }"
+                    >
+                      {{product.inStock}} in stock
                     </div>
+                    <button
+                      class="btn btn-success"
+                      @click="addProductToCart(product)"
+                      :disabled="product.inStock == 0"
+                    >
+                      Add to cart
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div v-else>
-              <h1>Cart</h1>
-              <table v-if="cart.items.length > 0" class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in cart.items" :key="item.id">
-                    <td>{{item.product.name}}</td>
-                    <td>{{item.quantity}}</td>
-                    <td>{{item.product.price * item.quantity | currencyFormat}}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-right" colspan="2">
-                      <strong>SubTotal</strong>
-                    </td>
-                    <td>{{cartTotal | currencyFormat}}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-right" colspan="2">
-                      <strong>Taxes</strong>
-                    </td>
-                    <td>{{taxAmount | currencyFormat}}</td>
-                  </tr>
-                  <tr>
-                  <td class="text-right" colspan="2">
-                    <strong>Grand Total</strong>
-                  </td>
-                  <td>{{cartTotal + taxAmount | currencyFormat}}</td>
-                </tr>
-                <tr>
-                  <td colspan="2"></td>
-                  <td><button class="btn btn-success">Checkout</button></td>
-                </tr>
-                </tbody>
-              </table>
-              <p v-else>Your cart is empty</p>
-            </div>
+          </div>
         </div>
+        <div v-else>
+          <h1>Cart</h1>
+          <table v-if="cart.items.length > 0" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in cart.items" :key="item.id">
+                <td>{{item.product.name}}</td>
+                <td>
+                  {{item.quantity}} &nbsp;
+                  <button
+                    class="btn btn-success"
+                    @click="increaseQuantity(item)"
+                    :disabled="item.product.inStock == 0"
+                  >
+                    +
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    @click="decreaseQuantity(item)"
+                  >
+                    -
+                  </button>
+                </td>
+                <td>{{item.product.price * item.quantity | currencyFormat}}</td>
+              </tr>
+              <tr>
+                <td class="text-right" colspan="2">
+                  <strong>SubTotal</strong>
+                </td>
+                <td>{{cartTotal | currencyFormat}}</td>
+              </tr>
+              <tr>
+                <td class="text-right" colspan="2">
+                  <strong>Taxes</strong>
+                </td>
+                <td>{{taxAmount | currencyFormat}}</td>
+              </tr>
+              <tr>
+                <td class="text-right" colspan="2">
+                  <strong>Grand Total</strong>
+                </td>
+                <td>{{cartTotal + taxAmount | currencyFormat}}</td>
+              </tr>
+              <tr>
+                <td colspan="2"></td>
+                <td><button class="btn btn-success">Checkout</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-else>Your cart is empty</p>
+        </div>
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="js/app.js"></script>
-</body>
+  </body>
 </html>
