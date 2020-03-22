@@ -113,6 +113,15 @@ new Vue({
       }
     },
 
+    checkOut: function() {
+      if (confirm("Are you sure you want to checkout these items?")) {
+        this.cart.items.forEach(function(item) {
+          item.product.inStock += item.quantity;
+        });
+        this.cart.items = [];
+      }
+    },
+
     getCurrentItem: function(product) {
       for (let i = 0; i < this.cart.items.length; i++) {
         if (this.cart.items[i].product.id === product.id) {
